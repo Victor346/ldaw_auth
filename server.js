@@ -6,6 +6,7 @@ let cookieParser = require('cookie-parser');
 let session = require('express-session');
 let flash = require('express-flash');
 let sessionStore = new session.MemoryStore;
+let passport = require('passport');
 
 /**
  * Configurations
@@ -38,6 +39,11 @@ app.use(session({
   secret: appConfig.secret
 }));
 app.use(flash());
+
+// Configuraciones de passport
+require('./configs/passport');
+app.use(passport.initialize());
+app.use(passport.session());
 
 /**
  * Routes

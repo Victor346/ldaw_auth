@@ -13,7 +13,7 @@ exports.store = [
   check('password').notEmpty(),
   // Revisa que el password sea el mismo
   check('password').custom((value, {req, loc, path}) => {
-    if (value !== req.body.confirm_password) {
+    if (value !== req.body.password_confirmation) {
       throw new Error("Passwords don't match");
     } else {
       return value;
