@@ -2,6 +2,11 @@ let express = require('express');
 let app = express();
 let webRoutes = require('./routes/web');
 
+let cookieParser = require('cookie-parser');
+let session = require('express-session');
+let flash = require('express-flash');
+let sessionStore = new session.MemoryStore;
+
 /**
  * Configurations
  */
@@ -23,6 +28,16 @@ app.engine(extNameHbs, hbs.engine);
 app.set('view engine', extNameHbs);
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(session({
+  cookie: { maxAge: 60000 },
+  store: sessionStore,
+  saveUninitialized: true,
+  resave: 'true',
+  secret: appConfig.secret
+}));
+app.use(flash());
 
 /**
  * Routes

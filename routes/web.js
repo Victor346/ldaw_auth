@@ -1,6 +1,7 @@
 let router = require('express').Router();
 let homepageController = require('../controllers/HomepageController');
 let authController = require('../controllers/AuthController');
+let authValidator = require('../validators/AuthValidators');
 
 router.get('/', homepageController.index);
 
@@ -8,6 +9,6 @@ router.get('/', homepageController.index);
 router.get('/login', authController.login);
 router.get('/register', authController.register);
 
-router.post('/register', authController.store);
+router.post('/register', authValidator.store, authController.store);
 
 module.exports = router;

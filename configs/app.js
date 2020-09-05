@@ -5,7 +5,8 @@ dotenv.config();
 
 const appConfig = {
   env: process.env.APP_ENV || 'development',
-  expressPort: process.env.EXPRESS_PORT || 3000
+  expressPort: process.env.EXPRESS_PORT || 3000,
+  secret: process.env.APP_SECRET || 'YOU_SHOULD_NOT_USE_THIS_SECRET'
 }
 
 module.exports = appConfig;

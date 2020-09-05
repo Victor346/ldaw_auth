@@ -12,6 +12,17 @@
     </p>
   </div>
 
+  {{#if errors.length}}
+    <div class="alert alert-danger">
+      Oops! the following errors were found:
+      <ul>
+        {{#each errors}}
+          <li>[{{param}}]: {{msg}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+
   <div class="form-label-group">
     <input name="name" type="text" id="inputName" class="form-control" placeholder="Name">
     <label for="inputName">Name</label>
