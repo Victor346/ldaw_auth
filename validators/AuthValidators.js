@@ -3,6 +3,8 @@
 // de validación
 const { check } = require('express-validator');
 
+const UserModel = require('../models/User');
+
 // Escribimos las reglas de validación para la acción register
 exports.store = [
   // Revisa que el nombre no sea vacío
@@ -20,3 +22,19 @@ exports.store = [
     }
   })
 ];
+
+exports.userAuth = (req, res, next) => {
+  if(req.isAuthenticated()) { return next(); }
+
+  return res.redirect('/register');
+}
+
+exports.adminAuth = (req, res, next) => {
+  UserModel.findById(req.session.passport.user).then((data) => {
+    if (data.role == "admin") { return next(); }
+
+    return res.status(403).json( { error: "Access denied" })
+  }).catch((error) => {
+    console.error(error)
+  });
+}

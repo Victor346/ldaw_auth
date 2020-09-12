@@ -27,5 +27,11 @@ exports.create = (user) => {
   let pass = user.password;
   pass = bcrypt.hashSync(pass, 10);
   return knex('users')
-    .insert({ name: user.name, email: user.email, password: pass })
+    .insert({ name: user.name, email: user.email, password: pass, role: user.role })
+}
+
+exports.findAll = () => {
+  return knex
+    .select('*')
+    .from('users');
 }
